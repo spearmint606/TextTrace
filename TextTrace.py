@@ -15,7 +15,6 @@ last_content = None
 
 @bot.event
 async def on_ready():
-    print(f'Logged in as {bot.user.name}')
     channel = bot.get_channel(CHANNEL_ID)
 
     while True:
